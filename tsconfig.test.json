@@ -6,6 +6,7 @@
     "declarationMap": false,
     "sourceMap": false,
     "noEmit": true,
+    "jsx": "react-jsx",
     "types": ["node", "jest"]
   }
 }

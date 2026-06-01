@@ -1,0 +1,70 @@
+profile:
+  name: SampleLeaProduction
+  version: "2025-26.1"
+  description: Sample LEA production usage profile
+  extends:
+    dataStandard: Ed-Fi-Model
+    version: 5.2.0
+  publisher:
+    name: Sample LEA
+    contact: data-team@sample-lea.org
+
+defaults:
+  # If a resource is in-use but a property is not called out, assume "unknown".
+  unannotatedPropertyStatus: unknown
+
+resources:
+
+  Student:
+    usage: in-use
+    populatedBy:
+      - Infinite Campus SIS
+    refreshCadence: nightly
+    coverage: 1.0
+    notes: All enrolled K-12 students; PreK loaded weekly
+    properties:
+      studentUniqueId:
+        usage: in-use
+        source: SIS.Student.StateID
+        requiredByImplementation: true
+      birthDate:
+        usage: in-use
+        source: SIS.Student.DOB
+      middleName:
+        usage: partial
+        coverage: 0.62
+        notes: Populated when present in enrollment record; not backfilled
+      hispanicLatinoEthnicity:
+        # Optional in the base spec, but mandatory here — the validator flags
+        # this as a "tightened-required" finding (info), and the stripped spec
+        # promotes it into the schema's required list.
+        usage: in-use
+        source: SIS.Student.Ethnicity
+        requiredByImplementation: true
+      citizenshipStatusDescriptor:
+        usage: not-populated
+        reason: Not collected per board policy 5.4
+      personalTitlePrefix:
+        usage: not-populated
+        reason: Field exists in SIS but not mapped
+      economicDisadvantaged:
+        usage: planned
+        notes: Targeted for the 2026-27 free/reduced lunch integration
+
+  StudentSchoolAssociation:
+    usage: in-use
+    populatedBy:
+      - Infinite Campus SIS
+    properties:
+      entryDate:
+        usage: in-use
+      exitWithdrawDate:
+        usage: in-use
+      exitWithdrawTypeDescriptor:
+        usage: in-use
+
+  StudentEducationOrganizationAssociation:
+    usage: not-implemented
+    reason: >-
+      Demographic data sourced from the Student resource directly; this
+      association is redundant in our model.

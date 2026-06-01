@@ -1,0 +1,96 @@
+overlay: 1.0.0
+info:
+  title: SampleLeaProduction Implementation Profile
+  version: 2025-26.1
+extends: Ed-Fi-Model@5.2.0
+actions:
+  - target: $.paths['/ed-fi/students'].get
+    update:
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+        refreshCadence: nightly
+        coverage: 1
+        notes: All enrolled K-12 students; PreK loaded weekly
+  - target: $.paths['/ed-fi/students'].post
+    update:
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+        refreshCadence: nightly
+        coverage: 1
+        notes: All enrolled K-12 students; PreK loaded weekly
+  - target: $.components.schemas.edFi_student.properties.studentUniqueId
+    update:
+      x-edfi-usage:
+        status: in-use
+        source: SIS.Student.StateID
+        requiredByImplementation: true
+  - target: $.components.schemas.edFi_student.properties.birthDate
+    update:
+      x-edfi-usage:
+        status: in-use
+        source: SIS.Student.DOB
+  - target: $.components.schemas.edFi_student.properties.middleName
+    update:
+      x-edfi-usage:
+        status: partial
+        coverage: 0.62
+        notes: Populated when present in enrollment record; not backfilled
+  - target: $.components.schemas.edFi_student.properties.hispanicLatinoEthnicity
+    update:
+      x-edfi-usage:
+        status: in-use
+        source: SIS.Student.Ethnicity
+        requiredByImplementation: true
+  - target: $.components.schemas.edFi_student.properties.citizenshipStatusDescriptor
+    update:
+      x-edfi-usage:
+        status: not-populated
+        reason: Not collected per board policy 5.4
+  - target: $.components.schemas.edFi_student.properties.personalTitlePrefix
+    update:
+      x-edfi-usage:
+        status: not-populated
+        reason: Field exists in SIS but not mapped
+  - target: $.components.schemas.edFi_student.properties.economicDisadvantaged
+    update:
+      x-edfi-usage:
+        status: planned
+        notes: Targeted for the 2026-27 free/reduced lunch integration
+  - target: $.paths['/ed-fi/studentSchoolAssociations'].get
+    update:
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+  - target: $.paths['/ed-fi/studentSchoolAssociations'].post
+    update:
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+  - target: $.components.schemas.edFi_studentSchoolAssociation.properties.entryDate
+    update:
+      x-edfi-usage:
+        status: in-use
+  - target: $.components.schemas.edFi_studentSchoolAssociation.properties.exitWithdrawDate
+    update:
+      x-edfi-usage:
+        status: in-use
+  - target: $.components.schemas.edFi_studentSchoolAssociation.properties.exitWithdrawTypeDescriptor
+    update:
+      x-edfi-usage:
+        status: in-use
+  - target: $.paths['/ed-fi/studentEducationOrganizationAssociations'].get
+    update:
+      x-edfi-usage:
+        status: not-implemented
+        reason: Demographic data sourced from the Student resource directly; this association is redundant in our model.
+  - target: $.paths['/ed-fi/studentEducationOrganizationAssociations'].post
+    update:
+      x-edfi-usage:
+        status: not-implemented
+        reason: Demographic data sourced from the Student resource directly; this association is redundant in our model.

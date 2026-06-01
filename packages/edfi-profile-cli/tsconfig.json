@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../edfi-profile-core" },
+    { "path": "../metaed-plugin-edfi-implementation-profile" }
+  ]
+}

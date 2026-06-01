@@ -1,0 +1,15 @@
+{
+  "name": "edfi-profile-core",
+  "version": "0.1.0",
+  "description": "Shared model, parser, and validator for Ed-Fi Implementation Usage Profiles. Both the MetaEd plugin (Track A) and the Profile Studio (Track B) depend on this so they can never drift on what a valid profile is.",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/edfi-profile-core" },
+    { "path": "packages/metaed-plugin-edfi-implementation-profile" },
+    { "path": "packages/edfi-profile-cli" }
+  ]
+}

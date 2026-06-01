@@ -1,0 +1,27 @@
+{
+  "name": "edfi-profile-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Browser-based authoring tool for Ed-Fi implementation usage profiles. Loads a Swagger spec, marks up resources/properties, exports a profile.yaml consumable by Track A.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "edfi-profile-core": "0.1.0",
+    "js-yaml": "^4.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  }
+}

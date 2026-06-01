@@ -1,0 +1,366 @@
+openapi: 3.0.1
+info:
+  title: Ed-Fi Operational Data Store API
+  description: Curated subset of the Ed-Fi ODS/API OpenAPI document, pinned to Data Standard 5.2 conventions. This is a self-contained excerpt covering the resources used by the Sample LEA worked example plus a handful of unannotated resources so coverage counts are meaningful. The full canonical document is published with each Ed-Fi Tech Suite release.
+  version: '3'
+  contact:
+    url: https://www.ed-fi.org
+servers:
+  - url: https://api.ed-fi.org/v7.2/api/data/v3
+security:
+  - oauth2_client_credentials: []
+paths:
+  /ed-fi/students:
+    get:
+      tags:
+        - students
+      summary: Retrieves specific resources using the resource's property values.
+      operationId: getStudents
+      responses:
+        '200':
+          description: The requested resources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/edFi_student'
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+        refreshCadence: nightly
+        coverage: 1
+        notes: All enrolled K-12 students; PreK loaded weekly
+    post:
+      tags:
+        - students
+      summary: Creates or updates resources based on the natural key values.
+      operationId: postStudent
+      responses:
+        '200':
+          description: The resource was updated.
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+        refreshCadence: nightly
+        coverage: 1
+        notes: All enrolled K-12 students; PreK loaded weekly
+  /ed-fi/students/{id}:
+    get:
+      tags:
+        - students
+      summary: Retrieves a specific resource using the resource's identifier.
+      operationId: getStudentsById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/edFi_student'
+    delete:
+      tags:
+        - students
+      summary: Deletes an existing resource using the resource identifier.
+      operationId: deleteStudentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: The resource was deleted.
+  /ed-fi/studentSchoolAssociations:
+    get:
+      tags:
+        - studentSchoolAssociations
+      summary: Retrieves specific resources using the resource's property values.
+      operationId: getStudentSchoolAssociations
+      responses:
+        '200':
+          description: The requested resources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/edFi_studentSchoolAssociation'
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+    post:
+      tags:
+        - studentSchoolAssociations
+      summary: Creates or updates resources based on the natural key values.
+      operationId: postStudentSchoolAssociation
+      responses:
+        '200':
+          description: The resource was updated.
+      x-edfi-usage:
+        status: in-use
+        populatedBy:
+          - Infinite Campus SIS
+  /ed-fi/studentSchoolAssociations/{id}:
+    get:
+      tags:
+        - studentSchoolAssociations
+      summary: Retrieves a specific resource using the resource's identifier.
+      operationId: getStudentSchoolAssociationsById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/edFi_studentSchoolAssociation'
+  /ed-fi/schools:
+    get:
+      tags:
+        - schools
+      summary: Retrieves specific resources using the resource's property values.
+      operationId: getSchools
+      responses:
+        '200':
+          description: The requested resources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/edFi_school'
+  /ed-fi/studentSectionAssociations:
+    get:
+      tags:
+        - studentSectionAssociations
+      summary: Retrieves specific resources using the resource's property values.
+      operationId: getStudentSectionAssociations
+      responses:
+        '200':
+          description: The requested resources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/edFi_studentSectionAssociation'
+  /ed-fi/sections:
+    get:
+      tags:
+        - sections
+      summary: Retrieves specific resources using the resource's property values.
+      operationId: getSections
+      responses:
+        '200':
+          description: The requested resources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/edFi_section'
+  /ed-fi/courseOfferings:
+    get:
+      tags:
+        - courseOfferings
+      summary: Retrieves specific resources using the resource's property values.
+      operationId: getCourseOfferings
+      responses:
+        '200':
+          description: The requested resources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/edFi_courseOffering'
+components:
+  securitySchemes:
+    oauth2_client_credentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.ed-fi.org/v7.2/api/oauth/token
+          scopes: {}
+  schemas:
+    edFi_student:
+      type: object
+      description: This entity represents an individual for whom instruction services are provided.
+      required:
+        - studentUniqueId
+        - firstName
+        - lastSurname
+        - birthDate
+        - hispanicLatinoEthnicity
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        studentUniqueId:
+          type: string
+          maxLength: 32
+          description: A unique alphanumeric code assigned to a student. ✅ Required by this implementation.
+          x-edfi-usage:
+            status: in-use
+            source: SIS.Student.StateID
+            requiredByImplementation: true
+        firstName:
+          type: string
+          maxLength: 75
+          description: A name given to an individual at birth, baptism, or during another naming ceremony.
+        middleName:
+          type: string
+          maxLength: 75
+          description: 'A secondary name given to an individual at birth, baptism, or during another naming ceremony. ⚠️ Partially populated: ~62% of records. Populated when present in enrollment record; not backfilled'
+          x-edfi-usage:
+            status: partial
+            coverage: 0.62
+            notes: Populated when present in enrollment record; not backfilled
+        lastSurname:
+          type: string
+          maxLength: 75
+          description: The name borne in common by members of a family.
+        birthDate:
+          type: string
+          format: date
+          description: The month, day, and year on which an individual was born.
+          x-edfi-usage:
+            status: in-use
+            source: SIS.Student.DOB
+        birthCity:
+          type: string
+          maxLength: 30
+          description: The city the student was born in.
+        hispanicLatinoEthnicity:
+          type: boolean
+          description: An indication that the individual traces their origin to a Hispanic or Latino culture. ✅ Required by this implementation.
+          x-edfi-usage:
+            status: in-use
+            source: SIS.Student.Ethnicity
+            requiredByImplementation: true
+        economicDisadvantaged:
+          type: boolean
+          description: An indication of whether a student met the criteria for an economically disadvantaged classification. 🕒 Planned — not yet populated. Targeted for the 2026-27 free/reduced lunch integration
+          x-edfi-usage:
+            status: planned
+            notes: Targeted for the 2026-27 free/reduced lunch integration
+    edFi_studentSchoolAssociation:
+      type: object
+      description: This association represents the school in which a student is enrolled.
+      required:
+        - entryDate
+        - schoolReference
+        - studentReference
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        entryDate:
+          type: string
+          format: date
+          description: The month, day, and year on which an individual enrolled at a school.
+          x-edfi-usage:
+            status: in-use
+        entryGradeLevelDescriptor:
+          type: string
+          description: The grade level or primary instructional level at which a student enters during a school year.
+        exitWithdrawDate:
+          type: string
+          format: date
+          description: The month, day, and year of the individual's withdrawal or exit from the school.
+          x-edfi-usage:
+            status: in-use
+        exitWithdrawTypeDescriptor:
+          type: string
+          description: The circumstances under which the student exited from membership in an educational institution.
+          x-edfi-usage:
+            status: in-use
+        schoolReference:
+          type: object
+          description: A reference to the related School resource.
+        studentReference:
+          type: object
+          description: A reference to the related Student resource.
+    edFi_studentEducationOrganizationAssociation:
+      type: object
+      description: This association represents student demographic and other information at the education organization level.
+      required:
+        - educationOrganizationReference
+        - studentReference
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        sexDescriptor:
+          type: string
+          description: A person's birth sex.
+        educationOrganizationReference:
+          type: object
+          description: A reference to the related EducationOrganization resource.
+        studentReference:
+          type: object
+          description: A reference to the related Student resource.
+    edFi_school:
+      type: object
+      description: This entity represents an educational organization that includes staff and students.
+      required:
+        - schoolId
+      properties:
+        id:
+          type: string
+        schoolId:
+          type: integer
+          description: The identifier assigned to a school.
+        nameOfInstitution:
+          type: string
+          description: The full, legally accepted name of the institution.
+    edFi_studentSectionAssociation:
+      type: object
+      description: This association indicates the course sections to which a student is assigned.
+      required:
+        - beginDate
+      properties:
+        id:
+          type: string
+        beginDate:
+          type: string
+          format: date
+          description: Month, day, and year of the first day a student is enrolled in the section.
+    edFi_section:
+      type: object
+      description: This entity represents a setting in which organized instruction of course content is provided.
+      required:
+        - sectionIdentifier
+      properties:
+        id:
+          type: string
+        sectionIdentifier:
+          type: string
+          description: The local identifier assigned to a section.
+    edFi_courseOffering:
+      type: object
+      description: This entity represents an entry in the course catalog of available courses offered by a school.
+      required:
+        - localCourseCode
+      properties:
+        id:
+          type: string
+        localCourseCode:
+          type: string
+          description: The local code assigned by the school that identifies the course offering.

@@ -1,0 +1,16 @@
+{
+  "name": "metaed-plugin-edfi-implementation-profile",
+  "version": "0.1.0",
+  "description": "MetaEd plugin that consumes an Ed-Fi implementation usage profile and emits an OpenAPI overlay, a stripped OpenAPI doc, and a coverage report.",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "edfi-profile-core": "0.1.0",
+    "js-yaml": "^4.1.0"
+  }
+}

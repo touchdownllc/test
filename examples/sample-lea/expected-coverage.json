@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-26",
+  "base": {
+    "dataStandard": "Ed-Fi-Model",
+    "version": "5.2.0"
+  },
+  "profile": {
+    "name": "SampleLeaProduction",
+    "version": "2025-26.1"
+  },
+  "summary": {
+    "resourcesInBaseSpec": 7,
+    "resourcesAnnotated": 3,
+    "resourcesInUse": 2,
+    "resourcesNotImplemented": 1,
+    "resourcesPlanned": 0,
+    "propertiesInUse": 7,
+    "propertiesAnnotated": 9
+  },
+  "resources": [
+    {
+      "name": "Student",
+      "usage": "in-use",
+      "coverage": 1,
+      "schemaPropertyCount": 11,
+      "propertiesInUse": 4,
+      "propertiesNotPopulated": 2,
+      "notable": [
+        "`middleName` partial (62%)",
+        "`citizenshipStatusDescriptor` not populated",
+        "`personalTitlePrefix` not populated",
+        "`economicDisadvantaged` planned"
+      ]
+    },
+    {
+      "name": "StudentSchoolAssociation",
+      "usage": "in-use",
+      "schemaPropertyCount": 7,
+      "propertiesInUse": 3,
+      "propertiesNotPopulated": 0,
+      "notable": []
+    },
+    {
+      "name": "StudentEducationOrganizationAssociation",
+      "usage": "not-implemented",
+      "schemaPropertyCount": 4,
+      "propertiesInUse": 0,
+      "propertiesNotPopulated": 0,
+      "notable": []
+    }
+  ],
+  "findings": [
+    {
+      "severity": "info",
+      "code": "tightened-required",
+      "path": "resources.Student.properties.hispanicLatinoEthnicity",
+      "message": "Property \"hispanicLatinoEthnicity\" is optional in the spec but required by this implementation."
+    }
+  ]
+}

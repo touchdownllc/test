@@ -1,0 +1,32 @@
+{
+  "name": "edfi-implementation-profile-poc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ed-Fi Implementation Usage Profile POC — describe which resources and elements of an Ed-Fi ODS/API deployment are actually in use.",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/edfi-profile-core",
+    "packages/metaed-plugin-edfi-implementation-profile",
+    "packages/edfi-profile-cli",
+    "packages/edfi-profile-studio"
+  ],
+  "scripts": {
+    "build": "tsc -b packages/edfi-profile-core packages/metaed-plugin-edfi-implementation-profile packages/edfi-profile-cli",
+    "build:studio": "npm run build --workspace edfi-profile-studio",
+    "build:all": "npm run build && npm run build:studio",
+    "clean": "tsc -b --clean packages/edfi-profile-core packages/metaed-plugin-edfi-implementation-profile packages/edfi-profile-cli",
+    "test": "jest",
+    "edfi-profile": "node packages/edfi-profile-cli/dist/cli.js"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.14.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

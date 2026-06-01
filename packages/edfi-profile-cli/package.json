@@ -1,0 +1,20 @@
+{
+  "name": "edfi-profile-cli",
+  "version": "0.1.0",
+  "description": "CLI wrapper that runs the Ed-Fi implementation profile generators against a profile + base OpenAPI doc.",
+  "license": "Apache-2.0",
+  "main": "dist/cli.js",
+  "bin": {
+    "edfi-profile": "bin/edfi-profile"
+  },
+  "files": ["dist", "bin", "src"],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "edfi-profile-core": "0.1.0",
+    "metaed-plugin-edfi-implementation-profile": "0.1.0",
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "js-yaml": "^4.1.0"
+  }
+}

@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+require('../dist/cli.js')
+  .main(process.argv.slice(2))
+  .then((code) => process.exit(code))
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
